@@ -12,6 +12,7 @@ namespace revfad {
 namespace {
 TEST(KmpMatcherTest, EmptyPattern) {
   KmpMatcher matcher("");
+  ASSERT_EQ(0, matcher.size());
   ASSERT_TRUE(matcher.consume('x'));
   matcher.reset();
   ASSERT_TRUE(matcher.consume('y'));
@@ -28,8 +29,21 @@ TEST(KmpMatcherTest, CharSequence) {
   ASSERT_FALSE(matcher.consume('c'));
 }
 
+TEST(KmpMatcherTest, CharSequenceWithReset) {
+  KmpMatcher matcher("abc");
+  ASSERT_EQ(3, matcher.size());
+  ASSERT_FALSE(matcher.consume('a'));
+  ASSERT_FALSE(matcher.consume('b'));
+  matcher.reset();
+  ASSERT_FALSE(matcher.consume('c'));
+  ASSERT_FALSE(matcher.consume('a'));
+  ASSERT_FALSE(matcher.consume('b'));
+  ASSERT_TRUE(matcher.consume('c'));
+}
+
 TEST(KmpMatcherTest, Mama) {
   KmpMatcher matcher("mama");
+  ASSERT_EQ(4, matcher.size());
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_FALSE(matcher.consume('m'));
   ASSERT_FALSE(matcher.consume('m'));
@@ -41,6 +55,7 @@ TEST(KmpMatcherTest, Mama) {
 
 TEST(KmpMatcherTest, SingleChar) {
   KmpMatcher matcher("x");
+  ASSERT_EQ(1, matcher.size());
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_TRUE(matcher.consume('x'));
   ASSERT_FALSE(matcher.consume('d'));
@@ -52,6 +67,7 @@ TEST(KmpMatcherTest, SingleChar) {
 
 TEST(KmpMatcherTest, RepeatedChars) {
   KmpMatcher matcher("aaa");
+  ASSERT_EQ(3, matcher.size());
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_TRUE(matcher.consume('a'));
