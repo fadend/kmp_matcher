@@ -29,6 +29,24 @@ TEST(KmpMatcherTest, CharSequence) {
   ASSERT_FALSE(matcher.consume('c'));
 }
 
+TEST(KmpMatcherTest, MoveCtor) {
+  KmpMatcher matcher1("abc");
+  ASSERT_FALSE(matcher1.consume('a'));
+  ASSERT_FALSE(matcher1.consume('b'));
+  KmpMatcher matcher2(std::move(matcher1));
+  ASSERT_EQ(3, matcher2.size());
+  ASSERT_TRUE(matcher2.consume('c'));
+}
+
+TEST(KmpMatcherTest, MoveOp) {
+  KmpMatcher matcher1("abc");
+  ASSERT_FALSE(matcher1.consume('a'));
+  ASSERT_FALSE(matcher1.consume('b'));
+  KmpMatcher matcher2 = std::move(matcher1);
+  ASSERT_EQ(3, matcher2.size());
+  ASSERT_TRUE(matcher2.consume('c'));
+}
+
 TEST(KmpMatcherTest, CharSequenceWithReset) {
   KmpMatcher matcher("abc");
   ASSERT_EQ(3, matcher.size());

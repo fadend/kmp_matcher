@@ -13,5 +13,6 @@ cc_test(
     ":kmp_matcher",
     "@googletest//:gtest",
     "@googletest//:gtest_main",
-    ]
+    ],
+  size="small"
 )

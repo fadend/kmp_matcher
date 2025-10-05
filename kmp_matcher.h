@@ -18,7 +18,13 @@ namespace revfad {
 // of the pattern and the stream of chars examined.
 class KmpMatcher {
 public:
-  KmpMatcher(std::string pattern);
+  explicit KmpMatcher(std::string pattern);
+
+  // Supports copying and moving.
+  KmpMatcher(const KmpMatcher &) = default;
+  KmpMatcher &operator=(const KmpMatcher &) = default;
+  KmpMatcher(const KmpMatcher &&);
+  KmpMatcher &operator=(const KmpMatcher &&);
 
   // Consume a single char and return whether it completes a match.
   bool consume(char c);
@@ -29,12 +35,12 @@ public:
   int size() const { return pattern_len_; }
 
 private:
-  const std::string pattern_;
-  const int pattern_len_;
+  void initialize_next_table();
+
+  std::string pattern_;
+  int pattern_len_;
   std::vector<int> next_;
   int position_ = 0;
-
-  void initialize_next_table();
 };
 
 } // namespace revfad
