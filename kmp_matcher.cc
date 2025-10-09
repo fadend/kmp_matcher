@@ -29,6 +29,7 @@ KmpMatcher &KmpMatcher::operator=(const KmpMatcher &&other) {
     this->pattern_ = std::move(other.pattern_);
     this->pattern_len_ = other.pattern_len_;
     this->next_ = std::move(other.next_);
+    this->position_ = other.position_;
   }
   return *this;
 }

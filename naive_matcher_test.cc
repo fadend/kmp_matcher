@@ -6,20 +6,20 @@
 
 #include "gtest/gtest.h"
 
-#include "kmp_matcher.h"
+#include "naive_matcher.h"
 
 namespace revfad {
 namespace {
-TEST(KmpMatcherTest, EmptyPattern) {
-  KmpMatcher matcher("");
+TEST(NaiveStringMatcherTest, EmptyPattern) {
+  NaiveStringMatcher matcher("");
   ASSERT_EQ(0, matcher.size());
   ASSERT_TRUE(matcher.consume('x'));
   matcher.reset();
   ASSERT_TRUE(matcher.consume('y'));
 }
 
-TEST(KmpMatcherTest, CharSequence) {
-  KmpMatcher matcher("abc");
+TEST(NaiveStringMatcherTest, CharSequence) {
+  NaiveStringMatcher matcher("abc");
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_FALSE(matcher.consume('b'));
   ASSERT_FALSE(matcher.consume('d'));
@@ -29,26 +29,26 @@ TEST(KmpMatcherTest, CharSequence) {
   ASSERT_FALSE(matcher.consume('c'));
 }
 
-TEST(KmpMatcherTest, MoveCtor) {
-  KmpMatcher matcher1("abc");
+TEST(NaiveStringMatcherTest, MoveCtor) {
+  NaiveStringMatcher matcher1("abc");
   ASSERT_FALSE(matcher1.consume('a'));
   ASSERT_FALSE(matcher1.consume('b'));
-  KmpMatcher matcher2(std::move(matcher1));
+  NaiveStringMatcher matcher2(std::move(matcher1));
   ASSERT_EQ(3, matcher2.size());
   ASSERT_TRUE(matcher2.consume('c'));
 }
 
-TEST(KmpMatcherTest, MoveOp) {
-  KmpMatcher matcher1("abc");
+TEST(NaiveStringMatcherTest, MoveOp) {
+  NaiveStringMatcher matcher1("abc");
   ASSERT_FALSE(matcher1.consume('a'));
   ASSERT_FALSE(matcher1.consume('b'));
-  KmpMatcher matcher2 = std::move(matcher1);
+  NaiveStringMatcher matcher2 = std::move(matcher1);
   ASSERT_EQ(3, matcher2.size());
   ASSERT_TRUE(matcher2.consume('c'));
 }
 
-TEST(KmpMatcherTest, CharSequenceWithReset) {
-  KmpMatcher matcher("abc");
+TEST(NaiveStringMatcherTest, CharSequenceWithReset) {
+  NaiveStringMatcher matcher("abc");
   ASSERT_EQ(3, matcher.size());
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_FALSE(matcher.consume('b'));
@@ -59,8 +59,8 @@ TEST(KmpMatcherTest, CharSequenceWithReset) {
   ASSERT_TRUE(matcher.consume('c'));
 }
 
-TEST(KmpMatcherTest, Mama) {
-  KmpMatcher matcher("mama");
+TEST(NaiveStringMatcherTest, Mama) {
+  NaiveStringMatcher matcher("mama");
   ASSERT_EQ(4, matcher.size());
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_FALSE(matcher.consume('m'));
@@ -71,8 +71,8 @@ TEST(KmpMatcherTest, Mama) {
   ASSERT_FALSE(matcher.consume('a'));
 }
 
-TEST(KmpMatcherTest, SingleChar) {
-  KmpMatcher matcher("x");
+TEST(NaiveStringMatcherTest, SingleChar) {
+  NaiveStringMatcher matcher("x");
   ASSERT_EQ(1, matcher.size());
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_TRUE(matcher.consume('x'));
@@ -83,8 +83,8 @@ TEST(KmpMatcherTest, SingleChar) {
   ASSERT_FALSE(matcher.consume('c'));
 }
 
-TEST(KmpMatcherTest, RepeatedChars) {
-  KmpMatcher matcher("aaa");
+TEST(NaiveStringMatcherTest, RepeatedChars) {
+  NaiveStringMatcher matcher("aaa");
   ASSERT_EQ(3, matcher.size());
   ASSERT_FALSE(matcher.consume('a'));
   ASSERT_FALSE(matcher.consume('a'));
