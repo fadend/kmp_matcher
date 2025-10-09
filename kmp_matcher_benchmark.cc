@@ -59,6 +59,7 @@ static void BM_NaiveStringMatcherFibonacci(benchmark::State &state) {
 }
 
 BENCHMARK(BM_KmpMatcherFibonacci)->RangeMultiplier(2)->Range(4, 32);
-BENCHMARK(BM_NaiveStringMatcherFibonacci)->RangeMultiplier(2)->Range(4, 32);;
+BENCHMARK(BM_NaiveStringMatcherFibonacci)->RangeMultiplier(2)->Range(4, 32);
+;
 
 BENCHMARK_MAIN();

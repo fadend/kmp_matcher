@@ -42,7 +42,8 @@ TEST(NaiveStringMatcherTest, MoveOp) {
   NaiveStringMatcher matcher1("abc");
   ASSERT_FALSE(matcher1.consume('a'));
   ASSERT_FALSE(matcher1.consume('b'));
-  NaiveStringMatcher matcher2 = std::move(matcher1);
+  NaiveStringMatcher matcher2("");
+  matcher2 = std::move(matcher1);
   ASSERT_EQ(3, matcher2.size());
   ASSERT_TRUE(matcher2.consume('c'));
 }
