@@ -25,17 +25,25 @@ Comparing agaist a naive implementation of naive matching:
 ```
 % bazel run -c opt :kmp_matcher_benchmark
 ...
-----------------------------------------------------------------------------
-Benchmark                                  Time             CPU   Iterations
-----------------------------------------------------------------------------
-BM_KmpMatcherFibonacci/4                48.1 ns         47.9 ns     15219476
-BM_KmpMatcherFibonacci/8                 167 ns          167 ns      4146060
-BM_KmpMatcherFibonacci/16               2586 ns         2584 ns       271122
-BM_KmpMatcherFibonacci/32            5190927 ns      5102696 ns          138
-BM_NaiveStringMatcherFibonacci/4        50.2 ns         48.2 ns     14820116
-BM_NaiveStringMatcherFibonacci/8         193 ns          192 ns      3525702
-BM_NaiveStringMatcherFibonacci/16       6579 ns         6541 ns       103718
-BM_NaiveStringMatcherFibonacci/32   14795181 ns     14725915 ns           47
+--------------------------------------------------------------------------------
+Benchmark                                      Time             CPU   Iterations
+--------------------------------------------------------------------------------
+BM_KmpMatcherFibonacci/4                    41.2 ns         41.2 ns     16723806
+BM_KmpMatcherFibonacci/8                     135 ns          135 ns      5084586
+BM_KmpMatcherFibonacci/16                   2236 ns         2236 ns       315236
+BM_KmpMatcherFibonacci/32                4164735 ns      4164732 ns          168
+BM_NaiveStringMatcherFibonacci/4            41.5 ns         41.5 ns     17155433
+BM_NaiveStringMatcherFibonacci/8             173 ns          173 ns      3991948
+BM_NaiveStringMatcherFibonacci/16           5947 ns         5947 ns       113192
+BM_NaiveStringMatcherFibonacci/32       13197689 ns     13197686 ns           51
+BM_KmpMatcherAaaaaaaa/4                     40.1 ns         40.1 ns     20411912
+BM_KmpMatcherAaaaaaaa/128                    200 ns          200 ns      3477138
+BM_KmpMatcherAaaaaaaa/16384                20489 ns        20489 ns        34258
+BM_KmpMatcherAaaaaaaa/1048576            1306258 ns      1306259 ns          536
+BM_NaiveStringMatcherAaaaaaaa/4             18.4 ns         18.4 ns     38011251
+BM_NaiveStringMatcherAaaaaaaa/128            701 ns          700 ns      1001316
+BM_NaiveStringMatcherAaaaaaaa/16384        87924 ns        87924 ns         7940
+BM_NaiveStringMatcherAaaaaaaa/1048576    5621758 ns      5621766 ns          124
 ```
 
 These numbers are from running on a MacBook M3 with
@@ -43,7 +51,7 @@ Apple clang version 17.0.0 (clang-1700.3.19.1).
 
 ## Requirements
 
-Formatted with `clang-format`.
+Formatted with `clang-format` and [`buildifier`](https://github.com/bazelbuild/buildtools/blob/main/buildifier/README.md).
 
 This project uses Bazel for builds: https://bazel.build/.
 

@@ -58,8 +58,29 @@ static void BM_NaiveStringMatcherFibonacci(benchmark::State &state) {
   }
 }
 
+static void BM_KmpMatcherAaaaaaaa(benchmark::State &state) {
+  for (auto _ : state) {
+    std::string aaa(state.range(0), 'a');
+    revfad::KmpMatcher matcher("aaaa");
+    for (const auto c : aaa) {
+      matcher.consume(c);
+    }
+  }
+}
+
+static void BM_NaiveStringMatcherAaaaaaaa(benchmark::State &state) {
+  for (auto _ : state) {
+    std::string aaa(state.range(0), 'a');
+    revfad::NaiveStringMatcher matcher("aaaa");
+    for (const auto c : aaa) {
+      matcher.consume(c);
+    }
+  }
+}
+
 BENCHMARK(BM_KmpMatcherFibonacci)->RangeMultiplier(2)->Range(4, 32);
 BENCHMARK(BM_NaiveStringMatcherFibonacci)->RangeMultiplier(2)->Range(4, 32);
-;
+BENCHMARK(BM_KmpMatcherAaaaaaaa)->RangeMultiplier(128)->Range(4, 1024 * 1024);
+BENCHMARK(BM_NaiveStringMatcherAaaaaaaa)->RangeMultiplier(128)->Range(4, 1024 * 1024);
 
 BENCHMARK_MAIN();
