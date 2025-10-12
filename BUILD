@@ -2,6 +2,7 @@ cc_library(
     name = "kmp_matcher",
     srcs = ["kmp_matcher.cc"],
     hdrs = ["kmp_matcher.h"],
+    visibility = ["//visibility:public"],
 )
 
 cc_library(
