@@ -2,4 +2,5 @@
 tasks:
   - test:
 notifications:
+  # Post live comments from Build Event Stream to the GitHub PR thread
   github: {}
