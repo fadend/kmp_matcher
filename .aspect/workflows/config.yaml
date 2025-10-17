@@ -1,0 +1,6 @@
+# See https://docs.aspect.build/v/workflows/config
+tasks:
+  - test:
+notifications:
+  # Post live comments from Build Event Stream to the GitHub PR thread
+  github: {}
